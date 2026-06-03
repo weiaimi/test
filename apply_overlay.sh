@@ -44,7 +44,7 @@ if ! grep -q 'cmcc_dump_at_brk.h' "$WX/wxshadow.c"; then
 fi
 
 if ! grep -q 'cmcc_plain_enabled' "$WX/wxshadow.c"; then
-  python3 <<'PY' "$WX/wxshadow.c"
+  python3 - "$WX/wxshadow.c" <<'PY'
 import sys
 path = sys.argv[1]
 text = open(path, encoding="utf-8", errors="replace").read()
