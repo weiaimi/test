@@ -52,7 +52,10 @@ block = (
     '\tcmcc_plain_enabled = 0;\n'
     '\tif (args && (strstr(args, "cmcc") || strstr(args, "plain"))) {\n'
     '\t\tcmcc_plain_enabled = 1;\n'
-    '\t\tpr_info("wxshadow: cmcc plain dump ENABLED (dmesg tag cmcc_plain)\\n");\n'
+    '\t\tif (cmcc_plain_setup() != 0)\n'
+    '\t\t\tcmcc_plain_enabled = 0;\n'
+    '\t\telse\n'
+    '\t\t\tpr_info("wxshadow: cmcc plain dump ENABLED (dmesg tag cmcc_plain)\\n");\n'
     '\t}\n\n'
 )
 for needle in ('\tpr_info("wxshadow: initializing', ' pr_info("wxshadow: initializing', 'pr_info("wxshadow: initializing'):

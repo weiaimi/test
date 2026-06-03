@@ -5,6 +5,7 @@
 struct pt_regs;
 
 extern int cmcc_plain_enabled;
+int cmcc_plain_setup(void);
 void cmcc_plain_dump_at_brk(struct pt_regs *regs);
 
 #endif

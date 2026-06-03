@@ -7,7 +7,8 @@ set "LibnetOff=133d0"
 set "PlainBpOff=98"
 set "Client=/data/local/tmp/wxshadow_client"
 
-echo 前置: APatch 加载 dist\wxshadow_cmcc.kpm  参数: cmcc
+echo 前置: 已关机重启过; APatch 仅加载一份 wxshadow_cmcc.kpm  参数: cmcc
+echo       加载前: adb shell am force-stop %Pkg%
 echo       adb push dist\wxshadow_client %Client%
 adb devices -l
 
