@@ -1,0 +1,47 @@
+name: Build cmcc-wxshadow KPM
+
+on:
+  push:
+    branches:
+      - main
+      - master
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Build wxshadow_cmcc artifacts
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install build dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            build-essential \
+            ca-certificates \
+            cmake \
+            curl \
+            file \
+            git \
+            ninja-build \
+            xz-utils \
+            gcc-aarch64-linux-gnu \
+            gcc-aarch64-none-elf
+
+      - name: Build
+        run: |
+          chmod +x build.sh apply_overlay.sh
+          ./build.sh
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: cmcc-wxshadow
+          path: |
+            dist/wxshadow_cmcc.kpm
+            dist/wxshadow_client
+          if-no-files-found: error
