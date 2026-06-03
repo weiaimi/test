@@ -67,6 +67,9 @@ mkdir -p "$WORK/build"
 cd "$WORK/build"
 cmake .. \
   -DCMAKE_BUILD_TYPE=Release \
+  -DCMAKE_SYSTEM_NAME=Generic \
+  -DCMAKE_SYSTEM_PROCESSOR=aarch64 \
+  -DCMAKE_TRY_COMPILE_TARGET_TYPE=STATIC_LIBRARY \
   -DCMAKE_C_COMPILER=aarch64-none-elf-gcc \
   -G Ninja
 
