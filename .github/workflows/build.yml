@@ -29,8 +29,7 @@ jobs:
             git \
             ninja-build \
             xz-utils \
-            gcc-aarch64-linux-gnu \
-            gcc-aarch64-none-elf
+            gcc-aarch64-linux-gnu
 
       - name: Build
         run: |

@@ -9,16 +9,19 @@ MKPMS_REPO="${MKPMS_REPO:-https://github.com/kkkbbb/mkpms.git}"
 MKPMS_REF="${MKPMS_REF:-master}"
 
 install_cross_tools() {
+  if ! command -v aarch64-linux-gnu-gcc >/dev/null 2>&1; then
+    if [ -f /etc/debian_version ]; then
+      echo "[*] apt install aarch64-linux-gnu compiler"
+      sudo apt-get update -qq
+      sudo apt-get install -y -qq gcc-aarch64-linux-gnu
+    fi
+  fi
+
   if command -v aarch64-none-elf-gcc >/dev/null 2>&1 \
      && command -v aarch64-linux-gnu-gcc >/dev/null 2>&1; then
     return 0
   fi
-  if [ -f /etc/debian_version ]; then
-    echo "[*] apt install cross compilers"
-    sudo apt-get update -qq
-    sudo apt-get install -y -qq gcc-aarch64-none-elf gcc-aarch64-linux-gnu
-    return 0
-  fi
+
   TOOLCHAIN_URL="${TOOLCHAIN_URL:-https://developer.arm.com/-/media/Files/downloads/gnu/13.3.rel1/binrel/arm-gnu-toolchain-13.3.rel1-x86_64-aarch64-none-elf.tar.xz}"
   TOOLCHAIN_DIR="${TOOLCHAIN_DIR:-$SCRIPT_DIR/_build/toolchain}"
   if [ ! -x "$TOOLCHAIN_DIR/bin/aarch64-none-elf-gcc" ]; then
